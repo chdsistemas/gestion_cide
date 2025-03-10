@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bienvenido a Gestion CIDE web app{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/mis_estilos.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+
+            {% if user.is_authenticated %}
+
+                {% if user.rol.codigo == 'INS' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Instructor</p>
+                    <a href="{%  url 'ver_mi_perfil' %}">Mi perfil de Instructor</a>
+                    <a href="">Consultar mis fichas</a>
+                    <a href="">Consultar mis programas</a>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+
+                {% elif user.rol.codigo == 'CAC' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Coordinador Académico</p>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+                
+                {% elif user.rol.codigo == 'ADM' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Administrador del sistema</p>
+                    <li>
+                        <a href="{%  url 'insertar_rol' %}">Crear Rol</a>
+                    </li>
+                    <li>
+                        <a href="{%  url 'listar_roles' %}">Listar roles</a>
+                    </li>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+                
+                    {% elif user.rol.codigo == 'LBA' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Lider de Bienestar de Aprendices</p>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+
+                {% elif user.rol.codigo == 'ADE' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Administrador de edificio</p>
+                    <a href="{%  url 'ver_mi_perfil' %}">Mi Perfil Administrador de Edificio</a>                    
+                    <a href="#">Crear nueva sede</a>
+                    <a href="#">Crear nuevo ambiente</a>
+                    <a href="#">Consultar ambientes</a>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                    
+               
+                    {% elif user.rol.codigo == 'APR' %}
+                    <p>Bienvenido(a), {{ user.first_name }}</p>
+                    <p>Aprendiz</p>
+                    <a href="{%  url 'ver_mi_perfil' %}">Mi perfil de aprendiz</a>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                
+                {% else %}
+                    <p>Su rol no es conocido, sesión no iniciada</p>
+                {% endif %}
+            
+            {% else %}
+                <p>Usuario invitado.</p>
+                <a href="{% url 'insertar_usuario' %}">Registrarse</a>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="#">Nosotros</a>
+                <a href="{% url 'insertar_rol' %}">Crear un rol</a>
+            {% endif %}
+
+        </nav>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <footer>
+        <p>2025 - Gestion Administrativa CIDE APP - Derechos reservados</p>
+    </footer>
+</body>
+</html>

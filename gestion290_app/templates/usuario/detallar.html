@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Detalle del Usuario
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TDI</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if usuario %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.tipo_doc }}</td>
+                    <td>{{ usuario.num_doc }}</td>
+                    <td>{{ usuario.first_name }}</td>
+                    <td>{{ usuario.last_name }}</td>
+                </tr>
+            {% else %}
+                <p>No hay usuarios registrados</p>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Listar roles
+{% endblock %}
+
+{% block content %}
+
+<h2>Roles de usuario</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if roles %}
+        {% for rol in roles %}
+        <tr>
+                <td>{{ rol.id }}</td>
+                <td>{{ rol.codigo }}</td>
+                <td>{{ rol.nombre }}</td>
+                <td>{{ rol.descripcion }}</td>
+                <td>
+                    <a href="">Actualizar</a>
+                    <a href="">Eliminar</a>
+                </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+            <p>No hay roles en el sistema</p>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

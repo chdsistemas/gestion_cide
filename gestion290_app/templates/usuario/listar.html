@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Listar usuarios
+{% endblock %}
+
+{% block content %}
+
+<h2>Usuarios del sistema</h2>
+
+<table>
+    <thead>
+        <td>
+            <th>Id</th>
+            <th>Tipo_id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Username</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Tipo_usuario</th>
+            <th>Acciones</th>
+        </td>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.tipo_doc }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.rol.nombre }}</td> <!--El modelo usuario llama al modelo rol este a su nombre-->
+                <td>
+                    <a href="{% url 'actualizar_usuario' usuario.id %}">Actualizar</a>
+                    <a href="{% url 'eliminar_usuario' usuario.id %}" onclick="return confirm('¿Realmente desea eliminar este usuario?')" >Eliminar</a>
+                </td>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

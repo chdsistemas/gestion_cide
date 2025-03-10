@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Registrar nuevo Rol
+{% endblock %}
+
+{% block content %}
+
+    <h1>Crear rol en el sistema</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ formulario.as_p }}
+        <button type="submit">Registrar nuevo rol</button>
+    </form>
+{% endblock %}
