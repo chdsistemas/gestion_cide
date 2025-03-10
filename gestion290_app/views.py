@@ -70,9 +70,7 @@ def login_usuario(request):
         if ((request.POST.get('username') != None) and (request.POST.get('password')) != None):
             username_recibido = request.POST.get('username')
             password_recibido = request.POST.get('password') 
-            autenticar = authenticate(
-                username = username_recibido, 
-                password = password_recibido
+            autenticar = authenticate(username = username_recibido, password = password_recibido
                 )
             if autenticar is not None: # Si variable autenticar no es vacía
                 login(request, autenticar) # Guarda datos de la sesión en el navegador
@@ -88,16 +86,35 @@ def login_usuario(request):
 def logout_usuario(request):
     logout(request)
     return redirect('home')
+
+
+def ver_mi_perfil(request):
+    usuario_registrado = request.user
+    usuario = Usuario.objects.get(id=usuario_registrado.id)
+    return render(request, 'usuario/detallar.html', {'usuario': usuario})
+
+
+
+def buscar_usuarios(request):
+    formulario = FormularioBuscarUsuarios(request.GET)
+    usuarios = None 
+
+    if formulario.is_valid():
+        consulta_SQL = formulario.cleaned_data.get('consulta', '')  # Obtener el valor de la consulta
+        if consulta_SQL:
+            usuarios = Usuario.objects.filter(first_name__icontains=consulta_SQL)  # Buscar por nombre de usuario
+
+    return render(request, 'usuario/buscar.html', {'formulario': formulario, 'usuarios': usuarios})
+
 # endregion
 
 
 # region rol
-
 def insertar_rol(request):
     if request.method == "POST":
-        form = FormularioRol(request.POST)
-        if form.is_valid():
-            form.save()
+        formulario = FormularioRol(request.POST)
+        if formulario.is_valid():
+            formulario.save()
             return redirect('listar_roles')
     else:
         formulario = FormularioRol()
@@ -126,12 +143,5 @@ def eliminar_rol(request, id):
 def listar_roles(request):
     roles = Rol.objects.all()
     return render(request, ['rol/listar.html', 'usuario/insertar.html'], {'roles':roles})
-
-
-
-def ver_mi_perfil(request):
-    usuario_registrado = request.user
-    usuario = Usuario.objects.get(id=usuario_registrado.id)
-    return render(request, 'usuario/detallar.html', {'usuario': usuario})
 
 

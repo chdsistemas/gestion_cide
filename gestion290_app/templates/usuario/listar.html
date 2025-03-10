@@ -25,24 +25,28 @@
         </td>
     </thead>
     <tbody>
-        {% for usuario in usuarios %}
-        <tr>
-            <td>
-                <td>{{ usuario.id }}</td>
-                <td>{{ usuario.tipo_doc }}</td>
-                <td>{{ usuario.first_name }}</td>
-                <td>{{ usuario.last_name }}</td>
-                <td>{{ usuario.username }}</td>
-                <td>{{ usuario.telefono }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.rol.nombre }}</td> <!--El modelo usuario llama al modelo rol este a su nombre-->
+        {%  if usuarios %}
+            {% for usuario in usuarios %}
+            <tr>
                 <td>
-                    <a href="{% url 'actualizar_usuario' usuario.id %}">Actualizar</a>
-                    <a href="{% url 'eliminar_usuario' usuario.id %}" onclick="return confirm('¿Realmente desea eliminar este usuario?')" >Eliminar</a>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.tipo_doc }}</td>
+                    <td>{{ usuario.first_name }}</td>
+                    <td>{{ usuario.last_name }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.telefono }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.rol.nombre }}</td> <!--El modelo usuario llama al modelo rol este a su nombre-->
+                    <td>
+                        <a href="{% url 'actualizar_usuario' usuario.id %}">Actualizar</a>
+                        <a href="{% url 'eliminar_usuario' usuario.id %}" onclick="return confirm('¿Realmente desea eliminar este usuario?')" >Eliminar</a>
+                    </td>
                 </td>
-            </td>
-        </tr>
-        {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron usuarios</p>
+        {% endif %}
     </tbody>
 </table>
 

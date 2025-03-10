@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Registrar nuevo Rol
+{% endblock %}
+
+{% block content %}
+
+    <h1>Crear rol en el sistema</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="GET" action="{% url 'buscar_usuario' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Buscar por nombre">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% endblock %}

@@ -31,3 +31,7 @@ class FormularioUsuario(forms.ModelForm):
         }
 
 
+class FormularioBuscarUsuarios(forms.Form):
+    consulta = forms.CharField(max_length=200, required=False, widget=forms.TextInput(attrs={'placeholder': 'Nombre a buscar:' }))
+
+

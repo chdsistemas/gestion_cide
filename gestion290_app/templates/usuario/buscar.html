@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Buscar usuarios registrados
+{% endblock %}
+
+{% block content %}
+
+    <h1>Buscar usuarios</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="get" action="{% url 'buscar_usuarios' %}">
+        
+        {{ formulario.as_p }}
+        <p>{{ mensaje }}</p>
+        <button type="submit">Buscar Usuarios</button>
+    </form>
+
+    {% if usuarios is not None %}
+        <h3>Resultados:</h3>        
+
+                {% if usuarios %}
+                    {% for usuario in usuarios %}
+                    <p>{{ usuario.first_name }} {{ usuario.last_name }}</p>
+        {% else %}
+            <p>No se encontraron usuarios coincidentes</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
